@@ -1,26 +1,44 @@
+/*global chrome*/
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './styles/main.scss';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      goals: []
+    }
+
+    this.renderGoals = this.renderGoals.bind(this);
+  }
+
+  componentDidMount() {
+    const $this = this;
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {}, function(response) {
+        $this.setState({goals: response.data});
+      });
+    });
+  }
+
+  renderGoals() {
+    debugger;
+    return this.state.goals.map((goal) => {
+      return (
+        <article className='goal-item'>
+          <h1>{goal.goal}</h1>
+        </article>
+      );
+    });
+    }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <section className="bamboo-hr-extension-main">
+        <section className="goals-section">
+          {this.renderGoals()}
+        </section>
+      </section>
     );
   }
 }
