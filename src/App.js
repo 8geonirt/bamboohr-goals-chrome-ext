@@ -1,5 +1,6 @@
 /*global chrome*/
 import React, { Component } from 'react';
+import { Pie } from 'react-chartjs-2';
 import './styles/main.scss';
 
 class App extends Component {
@@ -9,7 +10,7 @@ class App extends Component {
       goals: []
     }
 
-    this.renderGoals = this.renderGoals.bind(this);
+    this.drawChart = this.drawChart.bind(this);
   }
 
   componentDidMount() {
@@ -21,22 +22,37 @@ class App extends Component {
     });
   }
 
-  renderGoals() {
-    debugger;
-    return this.state.goals.map((goal) => {
-      return (
-        <article className='goal-item'>
-          <h1>{goal.goal}</h1>
-        </article>
-      );
-    });
+  drawChart() {
+    const data = {
+      labels: [
+        'Completed',
+        'In Progress'
+      ],
+      datasets: [{
+        data: [this.state.goals.filter((goal) => {
+          return goal.progress === 100
+        }).length,
+          this.state.goals.filter((goal) => {
+            return goal.progress < 100
+          }).length],
+        backgroundColor: [
+          '#FF6384',
+          '#36A2EB'
+        ],
+        hoverBackgroundColor: [
+          '#FF6384',
+          '#36A2EB'
+        ]
+      }]
     }
+    return <Pie data={data} />
+  }
 
   render() {
     return (
       <section className="bamboo-hr-extension-main">
         <section className="goals-section">
-          {this.renderGoals()}
+          {this.drawChart()}
         </section>
       </section>
     );

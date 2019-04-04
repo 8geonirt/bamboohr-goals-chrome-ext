@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
 
     return {
       goal: title,
-      progress: currentProgress,
+      progress: parseInt(currentProgress, 10),
       dueDate: dueDate
     }
   });

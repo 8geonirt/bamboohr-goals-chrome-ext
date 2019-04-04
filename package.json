@@ -22,5 +22,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "chart.js": "^2.8.0",
+    "react-chartjs-2": "^2.7.6"
+  }
 }
