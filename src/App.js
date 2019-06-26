@@ -26,22 +26,30 @@ class App extends Component {
     const data = {
       labels: [
         'Completed',
-        'In Progress'
+        'In Progress',
+        'Pending'
       ],
       datasets: [{
-        data: [this.state.goals.filter((goal) => {
-          return goal.progress === 100
-        }).length,
+        data: [
           this.state.goals.filter((goal) => {
-            return goal.progress < 100
-          }).length],
+            return goal.progress === 100
+          }).length,
+          this.state.goals.filter((goal) => {
+            return goal.progress > 0 && goal.progress < 100
+          }).length,
+          this.state.goals.filter((goal) => {
+            return goal.progress === 0
+          }).length
+        ],
         backgroundColor: [
-          '#FF6384',
-          '#36A2EB'
+          '#36A2EB',
+          '#00b136',
+          '#b40b13',
         ],
         hoverBackgroundColor: [
-          '#FF6384',
-          '#36A2EB'
+          '#36A2EB',
+          '#00b136',
+          '#b40b13',
         ]
       }]
     }
@@ -53,6 +61,9 @@ class App extends Component {
       <section className="bamboo-hr-extension-main">
         <section className="goals-section">
           {this.drawChart()}
+        </section>
+        <section className="information-section">
+          Total: {this.state.goals.length}
         </section>
       </section>
     );
