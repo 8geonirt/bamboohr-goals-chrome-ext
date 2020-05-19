@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "My Extension",
-  "description": "This extension is a starting point to create a real Chrome extension",
+  "name": "BambooHR Goals",
+  "description": "Draw a chart based on the performance goals' progress",
   "version": "0.0.1",
   "content_security_policy": "script-src 'self' 'sha256-5As4+3YpY62+l38PsxCEkjB1R4YtyktBtRScTJ3fyLU='; object-src 'self'",
   "content_scripts": [
@@ -10,6 +10,9 @@
       "js": ["app/payload.js"]
     }
   ],
+  "icons": {
+    "128": "/app/assets/bamboo_extension.png"
+  },
   "browser_action": {
     "default_popup": "index.html"
   },
